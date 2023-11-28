@@ -19,13 +19,10 @@ llm = LlamaCpp(
 prompt = PromptTemplate(
     input_variables=["question","chat_history"],
     template="""<s>[INST] <<SYS>>
-You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.
-
-If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.
+You are a helpful, respectful and honest assistant.
 <</SYS>>
-
-{chat_history}
-{question} [/INST]
+Here is the chat history:{chat_history}
+Answer the following question in one sentence:{question} [/INST]
 """,
 )
 #memory
@@ -34,11 +31,8 @@ conversation = LLMChain(llm=llm, prompt=prompt, memory=memory)
 conversation(
     {"question": "Translate this sentence from English to French: I love programming."}
 )
-
 conversation({"question": "Now translate the sentence to German."})
-
 conversation({"question": "Now translate the sentence to Japanese."})
-
 conversation({"question": "Now translate the sentence to Chinese."})
 
 
